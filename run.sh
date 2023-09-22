@@ -22,6 +22,7 @@ cp phpmyadmin/config.sample.inc.php phpmyadmin/config.inc.php
 sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
 mv phpmyadmin /var/www/html/phpmyadmin
 chmod 777 /var/www/html/phpmyadmin
+chmod 777 /var/www/html/
 
 mysql_secure_installation
 
@@ -62,10 +63,10 @@ done < $TXTFILE # list of user from txt in same directory
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_orig
 echo "" > /etc/nginx/sites-available/default
 cat customnginx > /etc/nginx/sites-available/default
-mv /var/www/html/index.nginx-debian.html /var/www/html/index-bak.html
+mv -v /var/www/html/index.nginx-debian.html /var/www/html/index-bak.html
 
 mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$ROOT$USERNAME'@'%' IDENTIFIED BY '$ROOTPASSWORD';"
 mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$ROOT$USERNAME'@'%' WITH GRANT OPTION;"
 mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
-rm phpmyadmin.tar.gz
+rm -v phpmyadmin.tar.gz
