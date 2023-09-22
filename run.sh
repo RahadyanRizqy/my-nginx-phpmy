@@ -21,6 +21,7 @@ mv phpMyAdmin-5.2.1-english phpmyadmin
 cp phpmyadmin/config.sample.inc.php phpmyadmin/config.inc.php
 sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
 mv phpmyadmin /var/www/html/phpmyadmin
+chmod 777 /var/www/html/phpmyadmin
 
 mysql_secure_installation
 
