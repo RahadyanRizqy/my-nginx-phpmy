@@ -61,6 +61,7 @@ done < $TXTFILE # list of user from txt in same directory
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_orig
 echo "" > /etc/nginx/sites-available/default
 cat customnginx > /etc/nginx/sites-available/default
+mv /var/www/html/index.nginx-debian.html /var/www/html/index-bak.html
 
 mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$ROOT$USERNAME'@'%' IDENTIFIED BY '$ROOTPASSWORD';"
 mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$ROOT$USERNAME'@'%' WITH GRANT OPTION;"
