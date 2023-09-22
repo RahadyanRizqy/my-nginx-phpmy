@@ -54,8 +54,8 @@ while IFS= read -r USERNAME; do
   ln -s /home/$USERNAME /var/www/html
 
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
-  mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'%' IDENTIFIED BY '$DBPASSWORD';"
-  mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON $DBUSER.* TO '$DBUSER'@'%' WITH GRANT OPTION;"
+  mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
+  mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON $DBUSER.* TO '$DBUSER'@'localhost' WITH GRANT OPTION;"
   mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
   echo "User $USERNAME and its database created with password: $COMMON_PASSWORD";
