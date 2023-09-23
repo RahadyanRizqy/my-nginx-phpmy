@@ -46,11 +46,13 @@ server {
         server_name _;
 
         location / {
-                autoindex on;
-                # First attempt to serve request as file, then
-                index index.html index.htm index.php;
-                # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                fancyindex on;
+                fancyindex_exact_size off;
+                fancyindex_localtime on;
+                fancyindex_header "/fancydark/header.html";
+                fancyindex_footer "/fancydark/footer.html";
+                fancyindex_ignore "index-default.html";
+                fancyindex_ignore "fancydark";
         }
 
         location ~ \.php$ {
