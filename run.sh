@@ -55,11 +55,6 @@ while IFS= read -r USERNAME; do
   ln -s /home/$USERNAME /var/www/html
   chmod -R a+rwx /home/$USERNAME/
 
-  git clone https://github.com/Naereen/Nginx-Fancyindex-Theme.git fancyindex
-  mv fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
-  mv fancyindex/fancydark /var/www/html
-  cp -v footer.html /var/www/html/fancydark
-
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
   mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
   mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON $DBUSER.* TO '$DBUSER'@'localhost' WITH GRANT OPTION;"
@@ -68,13 +63,20 @@ while IFS= read -r USERNAME; do
   echo "User $USERNAME and its database created with password: $COMMON_PASSWORD";
 done < $TXTFILE # list of user from txt in same directory
 
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_orig
+git clone https://github.com/Naereen/Nginx-Fancyindex-Theme.git fancyindex
+mv fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
+mv fancyindex/fancydark /var/www/html
+mv /var/www/html/fancydark/footer.html /var/www/html/fancydark/footer-default.html
+cp -v footer.html /var/www/html/fancydark
+
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default-orig
 echo "" > /etc/nginx/sites-available/default
 cat customnginx > /etc/nginx/sites-available/default
-mv -v /var/www/html/index.nginx-debian.html /var/www/html/index-bak.html
+mv -v /var/www/html/index.nginx-debian.html /var/www/html/index-default.html
 
 mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$ROOT$USERNAME'@'%' IDENTIFIED BY '$ROOTPASSWORD';"
 mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$ROOT$USERNAME'@'%' WITH GRANT OPTION;"
 mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
 rm -v phpmyadmin.tar.gz
+rm -rf fancyindex/
