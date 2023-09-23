@@ -7,7 +7,7 @@
 # Index will be on /home/
 
 apt update
-apt install curl nginx mariadb-client mariadb-server iptables-persistent wget php php-zip php-intl php-curl php-mbstring php8.1 php8.1-fpm php8.1-mysql php8.1-common php8.1-cli php8.1-opcache php8.1-readline php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl -y
+apt install curl git nginx mariadb-client mariadb-server iptables-persistent wget php php-zip php-intl php-curl php-mbstring php8.1 php8.1-fpm php8.1-mysql php8.1-common php8.1-cli php8.1-opcache php8.1-readline php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl nginx-extras -y
 
 systemctl enable php8.1-fpm
 systemctl start php8.1-fpm
@@ -27,6 +27,7 @@ service nginx restart
 
 mysql_secure_installation
 
+# REMOTE IS DISABLED DUE TO LOCALHOST ONLY CONNECTIVITY
 # iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 # iptables -A OUTPUT -p tcp --dport 3306 -j ACCEPT
 # iptables-save > /etc/iptables/rules.v4
@@ -53,6 +54,11 @@ while IFS= read -r USERNAME; do
   cp -v index.html /home/$USERNAME;
   ln -s /home/$USERNAME /var/www/html
   chmod -R a+rwx /home/$USERNAME/
+
+  git clone https://github.com/Naereen/Nginx-Fancyindex-Theme.git fancyindex
+  mv fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
+  mv fancyindex/fancydark /var/www/html
+  cp -v footer.html /var/www/html/fancydark
 
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
   mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
