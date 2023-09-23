@@ -27,11 +27,11 @@ service nginx restart
 
 mysql_secure_installation
 
-iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 3306 -j ACCEPT
-iptables-save > /etc/iptables/rules.v4
+# iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+# iptables -A OUTPUT -p tcp --dport 3306 -j ACCEPT
+# iptables-save > /etc/iptables/rules.v4
 
-service iptables restart
+# service iptables restart
 
 read -p "Mysql (ROOT) Username: " ROOTUSERNAME
 read -p "Mysql (ROOT) Password: " ROOTPASSWORD
@@ -52,6 +52,7 @@ while IFS= read -r USERNAME; do
   find /home/$USERNAME -type f -exec chmod 644 {} \;
   cp -v index.html /home/$USERNAME;
   ln -s /home/$USERNAME /var/www/html
+  chmod -R a+rwx /home/$USERNAME/
 
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
   mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
