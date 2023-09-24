@@ -52,7 +52,7 @@ while IFS= read -r USERNAME; do
   find /home/$USERNAME -type f -exec chmod 644 {} \;
   cp -v index.html /home/$USERNAME;
   ln -s /home/$USERNAME /var/www/html
-  chmod -R a+rwx /home/$USERNAME/
+  chmod -R a+rwx /home/$USERNAME
 
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
   mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
