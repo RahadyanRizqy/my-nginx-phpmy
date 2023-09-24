@@ -63,12 +63,14 @@ while IFS= read -r USERNAME; do
 done < $TXTFILE # list of user from txt in same directory
 
 git clone https://github.com/Naereen/Nginx-Fancyindex-Theme.git fancyindex
-mv fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
-mv fancyindex/fancydark /var/www/html
-mv /var/www/html/fancydark/footer.html /var/www/html/fancydark/footer-default.html
+mv -v fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
+mv -v fancyindex/fancydark /var/www/html
+mv -v /var/www/html/fancydark/footer.html /var/www/html/fancydark/footer-default.html
+mv -v /var/www/html/fancydark/header.html /var/www/html/fancydark/header-default.html
 cp -v footer.html /var/www/html/fancydark
+cp -v header.html /var/www/html/fancydark
 
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default-orig
+cp -v /etc/nginx/sites-available/default /etc/nginx/sites-available/default-orig
 echo "" > /etc/nginx/sites-available/default
 cat customnginx > /etc/nginx/sites-available/default
 mv -v /var/www/html/index.nginx-debian.html /var/www/html/index-default.html
