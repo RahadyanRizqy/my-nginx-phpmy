@@ -23,7 +23,6 @@ sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]
 mv phpmyadmin /var/www/html/phpmyadmin
 chmod 777 /var/www/html/phpmyadmin
 chmod 777 /var/www/html
-service nginx restart
 
 mysql_secure_installation
 
@@ -80,3 +79,4 @@ mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
 rm -v phpmyadmin.tar.gz
 rm -rf fancyindex/
+service nginx restart
