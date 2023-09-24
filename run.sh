@@ -79,6 +79,9 @@ mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$ROOT$USERNAME'@'%' IDENTIFIED BY
 mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$ROOT$USERNAME'@'%' WITH GRANT OPTION;"
 mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
+wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+tar -xvzf ngrok.tgz -C /bin
+
 rm -v phpmyadmin.tar.gz
 rm -rf fancyindex/
 service nginx restart
