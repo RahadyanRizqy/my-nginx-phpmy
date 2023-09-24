@@ -2,7 +2,8 @@
 # ngrok must be placed and run in root server
 read -p "Ngrok token: " TOKEN
 ngrok config add-authtoken $TOKEN
-ngrok tcp 22 --log=stdout > /root/ngrok.log &
+touch ngrok.log
+ngrok tcp 22 --log=stdout > ngrok.log &
 command=$(ps aux | grep ngrok | awk '{print $2}' | sed -n '2p');
 sleep 5;
 host=$(grep "started tunnel" ngrok.log | awk -F'url=' '{print $2}' | cut -d':' -f2 | sed 's/\/\///');
