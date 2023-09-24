@@ -1,7 +1,5 @@
 #!/bin/bash
-# ngrok must be placed and run in root server
-read -p "Ngrok token: " TOKEN
-ngrok config add-authtoken $TOKEN
+# must add the token first
 touch ngrok.log
 ngrok tcp 22 --log=stdout > ngrok.log &
 command=$(ps aux | grep ngrok | awk '{print $2}' | sed -n '2p');
