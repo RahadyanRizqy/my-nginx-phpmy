@@ -84,4 +84,5 @@ tar -xvzf ngrok.tgz -C /bin
 
 rm -v phpmyadmin.tar.gz
 rm -rf fancyindex/
+rm -v ngrok.tgz
 service nginx restart
