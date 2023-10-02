@@ -36,8 +36,8 @@ mysql_secure_installation
 read -p "Mysql (ROOT) Username: " ROOTUSERNAME
 read -p "Mysql (ROOT) Password: " ROOTPASSWORD
 read -p "Common Password: " COMMON_PASSWORD
-read -p "File List Input: " TXTFILE
-
+#read -p "File List Input: " TXTFILE
+TXTFILE=users
 DBPASSWORD=$COMMON_PASSWORD
 
 # Read usernames from the list file and create users
