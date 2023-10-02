@@ -47,12 +47,13 @@ while IFS= read -r USERNAME; do
 
   useradd -m -p $PASSWORD $USERNAME # Create user with home directory
   chsh -s /bin/bash $USERNAME
-  chown -R $USERNAME:$USERNAME /home/$USERNAME
-  find /home/$USERNAME -type d -exec chmod 755 {} \;
-  find /home/$USERNAME -type f -exec chmod 644 {} \;
+  chown -R www-data:www-data /home/$USERNAME
+  #chown -R $USERNAME:$USERNAME /home/$USERNAME
+  #find /home/$USERNAME -type d -exec chmod 755 {} \;
+  #find /home/$USERNAME -type f -exec chmod 644 {} \;
   cp -v index.html /home/$USERNAME;
   ln -s /home/$USERNAME /var/www/html
-  chmod -R a+rwx /home/$USERNAME
+  #chmod -R a+rwx /home/$USERNAME
 
   mysql -u root -p$ROOTPASSWORD -e "CREATE DATABASE $DBUSER;"
   mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASSWORD';"
