@@ -47,10 +47,10 @@ while IFS= read -r USERNAME; do
 
   useradd -m -p $PASSWORD $USERNAME # Create user with home directory
   chsh -s /bin/bash $USERNAME
-  chown -R www-data:www-data /home/$USERNAME
-  #chown -R $USERNAME:$USERNAME /home/$USERNAME
-  #find /home/$USERNAME -type d -exec chmod 755 {} \;
-  #find /home/$USERNAME -type f -exec chmod 644 {} \;
+  #chown -R www-data:www-data /home/$USERNAME
+  chown -R $USERNAME:$USERNAME /home/$USERNAME
+  find /home/$USERNAME -type d -exec chmod 755 {} \;
+  find /home/$USERNAME -type f -exec chmod 644 {} \;
   cp -v index.html /home/$USERNAME;
   ln -s /home/$USERNAME /var/www/html
   #chmod -R a+rwx /home/$USERNAME
@@ -82,6 +82,8 @@ mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
 wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 tar -xvzf ngrok.tgz -C /bin
+
+chown -R www-data:www-data /var/www/html/
 
 rm -v phpmyadmin.tar.gz
 rm -rf fancyindex/
