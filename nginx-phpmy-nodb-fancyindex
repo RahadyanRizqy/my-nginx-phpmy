@@ -1,0 +1,30 @@
+apt update
+apt install curl git nginx nginx-extras mariadb-client iptables-persistent wget php php-zip php-intl php-curl php-mbstring php8.1 php8.1-fpm php8.1-mysql php8.1-common php8.1-cli php8.1-opcache php8.1-readline php8.1-mbstring php8.1-xml php8.1-gd php8.1-curl -y
+
+wget -O phpmyadmin.tar.gz https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-english.tar.gz
+tar -xvzf phpmyadmin.tar.gz
+mv -v phpMyAdmin-5.2.1-english phpmyadmin
+cp -v phpmyadmin/config.sample.inc.php phpmyadmin/config.inc.php
+sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
+mv -v phpmyadmin /var/www/html/phpmyadmin
+chmod 777 /var/www/html/phpmyadmin
+chmod 777 /var/www/html
+
+git clone https://github.com/Naereen/Nginx-Fancyindex-Theme.git fancyindex
+mv -v fancyindex/Nginx-Fancyindex-Theme-dark fancyindex/fancydark
+mv -v fancyindex/fancydark /var/www/html
+mv -v /var/www/html/fancydark/footer.html /var/www/html/fancydark/footer-default.html
+mv -v /var/www/html/fancydark/header.html /var/www/html/fancydark/header-default.html
+curl https://raw.githubusercontent.com/RahadyanRizqy/nginx-phpmy/main/footer.html > /var/www/html/fancydark/footer.html
+curl https://raw.githubusercontent.com/RahadyanRizqy/nginx-phpmy/main/header.html > /var/www/html/fancydark/header.html
+
+wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+tar -xvzf ngrok.tgz -C /bin
+
+rm -v phpmyadmin.tar.gz
+rm -v ngrok.tgz
+rm -rf fancyindex/
+
+echo "Nginx - Phpmyadmin sucessfully set up!"
+echo "Ngrok must be configured before start!"
+echo "Edit host in config.inc.php to connect to the database!"
