@@ -25,8 +25,8 @@ read -p "(ROOT) Password: " ROOTPASSWORD
 read -p "Create Mysql Admin Username: " MYADMINUSERNAME
 read -p "Create Mysql Admin Password: " MYADMINPASSWORD
 
-mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$MYADMINUSERNAME'@'localhost' IDENTIFIED BY '$MYADMINPASSWORD';"
-mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYADMINUSERNAME'@'localhost';"
+mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$MYADMINUSERNAME'@'%' IDENTIFIED BY '$MYADMINPASSWORD';"
+mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYADMINUSERNAME'@'%';"
 mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
 
 sed -i "s/bind-address            = 127.0.0.1/bind-address = 0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
