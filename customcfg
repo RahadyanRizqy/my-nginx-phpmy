@@ -46,14 +46,7 @@ server {
         server_name _;
 
         location / {
-                fancyindex on;
-                fancyindex_exact_size off;
-                fancyindex_localtime on;
-                fancyindex_header "/fancydark/header.html";
-                fancyindex_footer "/fancydark/footer.html";
-                fancyindex_ignore "index-default.html";
-                fancyindex_ignore "fancydark";
-		            try_files $uri $uri/ /index.php;
+		try_files $uri $uri/ /index.php;
         }
 
         location ~ \.php$ {
