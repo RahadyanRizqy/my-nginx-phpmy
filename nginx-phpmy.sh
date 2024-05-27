@@ -14,7 +14,7 @@ tar -xvzf phpmyadmin.tar.gz
 mv phpMyAdmin-5.2.1-english html
 cp html/config.sample.inc.php html/config.inc.php
 sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
-mv html /var/www/html
+mv html /var/www/
 chmod 777 -R /var/www/
 rm -v phpmyadmin.tar.gz
 
