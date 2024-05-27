@@ -14,20 +14,18 @@ tar -xvzf phpmyadmin.tar.gz
 mv phpMyAdmin-5.2.1-english phpmyadmin
 cp phpmyadmin/config.sample.inc.php phpmyadmin/config.inc.php
 sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
-mv phpmyadmin /var/www/pma
+mv phpmyadmin /var/www/html
 chmod 777 -R /var/www/
-chmod 755 /var/www/pma/config.inc.php
 rm -v phpmyadmin.tar.gz
 
 mysql_secure_installation
 
-read -p "(ROOT) Password: " ROOTPASSWORD
-read -p "Create Mysql Admin Username: " MYADMINUSERNAME
-read -p "Create Mysql Admin Password: " MYADMINPASSWORD
+MYADMINUSERNAME=admindb
+MYADMINPASSWORD=adminpw
 
-mysql -u root -p$ROOTPASSWORD -e "CREATE USER '$MYADMINUSERNAME'@'%' IDENTIFIED BY '$MYADMINPASSWORD';"
-mysql -u root -p$ROOTPASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYADMINUSERNAME'@'%';"
-mysql -u root -p$ROOTPASSWORD -e "FLUSH PRIVILEGES;"
+mysql -u'root' -e "CREATE USER '$MYADMINUSERNAME'@'%' IDENTIFIED BY '$MYADMINPASSWORD';"
+mysql -u'root' -e "GRANT ALL PRIVILEGES ON *.* TO '$MYADMINUSERNAME'@'%';"
+mysql -u'root' -e "FLUSH PRIVILEGES;"
 
 sed -i "s/bind-address            = 127.0.0.1/bind-address = 0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
 
