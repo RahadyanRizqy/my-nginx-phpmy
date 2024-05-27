@@ -11,10 +11,10 @@ sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php/8.1/cli/php.ini
 wget -O phpmyadmin.tar.gz https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-english.tar.gz
 
 tar -xvzf phpmyadmin.tar.gz
-mv phpMyAdmin-5.2.1-english phpmyadmin
-cp phpmyadmin/config.sample.inc.php phpmyadmin/config.inc.php
+mv phpMyAdmin-5.2.1-english html
+cp html/config.sample.inc.php html/config.inc.php
 sed -i "s/\$cfg\['blowfish_secret'\] = '.*';/\$cfg['blowfish_secret'] = 'JBz?DX]#m\$Vy[m+M}o9jo?iMzpnQ9|U-';/" phpmyadmin/config.inc.php
-mv phpmyadmin /var/www/html
+mv html /var/www/html
 chmod 777 -R /var/www/
 rm -v phpmyadmin.tar.gz
 
